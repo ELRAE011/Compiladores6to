@@ -5,19 +5,19 @@ pwd
 ls
 
 # 3 Obtiene una lista de todos los comandos disponibles en la shell actual.
-Get-Command
+pwd
 
 # 4 Obtiene el historial de comandos que se han ejecutado en la shell actual.
-Get-History
+history
 
 # 5 Obtiene un número aleatorio.
-Get-Random
+shuf
 
 # 6 Obtiene información sobre el sistema operativo y el entorno actual.
-Get-Host
+Hostname
 
 # 7 Pausa la ejecución del script y espera a que el usuario presione una tecla.
-pause
+Read -rsp
 
 # 8 Limpia la pantalla.
-cls
+clear
