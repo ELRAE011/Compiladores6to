@@ -36,3 +36,10 @@ raices = calcular_raices(a, b, c)
 
 print(f"Raíz 1: {raices[0]}")
 print(f"Raíz 2: {raices[1]}")
+
+#CODIGO PARA CORRER EL PROGRAMA EN CMD
+#ts-node .\Chicharronera.ts
+
+#Coeficiente a:1
+#Coeficiente b:-3
+#Coeficiente c:2
