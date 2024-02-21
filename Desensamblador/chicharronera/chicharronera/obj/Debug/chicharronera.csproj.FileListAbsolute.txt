@@ -1,0 +1,5 @@
+C:\Users\sigar.JUAN\Documents\SharpDevelop Projects\chicharronera\chicharronera\bin\Debug\chicharronera.exe
+C:\Users\sigar.JUAN\Documents\SharpDevelop Projects\chicharronera\chicharronera\bin\Debug\chicharronera.pdb
+C:\Users\sigar.JUAN\Documents\SharpDevelop Projects\chicharronera\chicharronera\obj\Debug\chicharronera.csprojResolveAssemblyReference.cache
+C:\Users\sigar.JUAN\Documents\SharpDevelop Projects\chicharronera\chicharronera\obj\Debug\chicharronera.exe
+C:\Users\sigar.JUAN\Documents\SharpDevelop Projects\chicharronera\chicharronera\obj\Debug\chicharronera.pdb
