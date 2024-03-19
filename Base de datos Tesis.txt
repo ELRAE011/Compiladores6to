@@ -4,7 +4,9 @@ create database Tesis;
 use Tesis
 
 
-create table Carreras(Carrera varchar(45) primary key, Generacion varchar(20) UNIQUE);
+create table Carreras(
+Carrera varchar(45) primary key, 
+Generacion varchar(20));
 
 
 create table Profesor(
@@ -33,8 +35,7 @@ CorreoElectronico varchar(60),
 FechaNacimiento date, 
 Carrera varchar(45), 
 Generacion varchar(20),
-foreign key (carrera)references carreras(carrera) on delete cascade on update cascade,
-foreign key (Generacion)references carreras(Generacion) on delete cascade on update cascade);
+foreign key (carrera)references carreras(carrera) on delete cascade on update cascade);
 
 
 create table Trabajos(IdTesis int primary key, 
@@ -46,5 +47,4 @@ Generacion varchar(20),
 FechaPresentacion date, 
 FechaEntrega date, 
 FechaPublicacion date,
-foreign key (carrera)references carreras(carrera) on delete cascade on update cascade,
-foreign key (Generacion)references carreras(Generacion) on delete cascade on update cascade);
+foreign key (carrera)references carreras(carrera) on delete cascade on update cascade);

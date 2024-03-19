@@ -22,6 +22,8 @@ and open the template in the editor.
                 <li><a href="index.xhtml">PAGINA DE INICIO</a></li>
                 <li><a href="AltaCarreras.xhtml">ALTA DE CARRERAS</a></li>
                 <li><a href="ListaCarreras.xhtml">LISTA DE CARRERAS</a></li>
+                <li><a href="AltaAlumnos.xhtml">ALTA DE ALUMNOS</a></li>
+                <li><a href="ListaAlumnos.xhtml">LISTA DE ALUMNOS</a></li>
             </ul>
         </div>
         <h:form id="formMostrar">
@@ -34,11 +36,11 @@ and open the template in the editor.
                     <div style="float:right;padding-top: 10px; display: flex; flex-direction: row;">
                         <h:commandLink style="margin-right: 10px">
                             <p:graphicImage value="/Images/ExcelLogo.png" width="25" height="25" />
-                            <p:dataExporter type="xls" target="tbl" fileName="C:\Lista" />
+                            <p:dataExporter type="xls" target="tbl" fileName="CarrerasLista" />
                         </h:commandLink>
                         <h:commandLink>
                             <p:graphicImage value="/Images/PDFIcon.png" width="25" height="25" />
-                            <p:dataExporter type="pdf" target="tbl" fileName="C:\Lista"/>
+                            <p:dataExporter type="pdf" target="tbl" fileName="CarrerasLista"/>
                         </h:commandLink>   
                     </div>
                 </f:facet>
@@ -52,13 +54,15 @@ and open the template in the editor.
 
                 <p:column headerText="Accion" exportable="false">
                     <p:commandButton value="Editar" onclick="PF('dlgModificar').show();" update=":formModificarCarreras">
-                        <f:setPropertyActionListener target="#{carrerasBean.modificar()}" value="#{per}"/>
+                        <f:setPropertyActionListener target="#{carrerasBean.carreras}" value="#{per}"/>
+                            <p:ajax listener="#{carrerasBean.modificar()}"/>
                     </p:commandButton>
                 </p:column>
 
                 <p:column headerText="Accion" exportable="false">
-                    <p:commandButton value="Eliminar" onclick="PF('dlgEliminar').show();">
-                        <f:setPropertyActionListener target="#{carrerasBean.eliminar()}" value="#{per}"/>
+                    <p:commandButton value="Eliminar" onclick="PF('dlgEliminar').show();" update=":formMostrar">
+                        <f:setPropertyActionListener target="#{carrerasBean.carreras}" value="#{per}" />
+                        <p:ajax listener="#{carrerasBean.eliminar()}"/>
                     </p:commandButton>
                 </p:column>
 
@@ -81,7 +85,7 @@ and open the template in the editor.
             <h:form id="formModificarCarreras">
                 <p:panelGrid columns="2">
                     <p:outputLabel value="Nombre De La Carrera:" />
-                    <p:inputText value="#{carrerasBean.carreras.carrera}"/>
+                    <p:outputLabel value="LLAVE PRIMARIA LLAME AL ADMINISTRADOR PARA CAMBIARLA..."/>
                     <p:outputLabel value="Ingrese La Nueva Generacion:"/>
                     <p:inputText value="#{carrerasBean.carreras.generacion}"/>
                 </p:panelGrid>
