@@ -1,50 +1,50 @@
-jdbc:mysql://localhost:3307/tesis
-create database Tesis;
 
-use Tesis
+create database tesis;
+use tesis;
 
+CREATE TABLE Carreras (
+    carrera_id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    generacion VARCHAR(20)
+);
 
-create table Carreras(
-Carrera varchar(45) primary key, 
-Generacion varchar(20));
+CREATE TABLE Profesores (
+    noCuentaProfesor INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(45) NOT NULL,
+    paterno VARCHAR(45) NOT NULL,
+    materno VARCHAR(45) NOT NULL,
+    sexo VARCHAR(45),
+    celular BIGINT,
+    correoElectronico VARCHAR(60),
+    cedulaProfesional VARCHAR(50),
+    carrera_id INT,
+    FOREIGN KEY (carrera_id) REFERENCES Carreras(carrera_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
+CREATE TABLE Alumnos (
+    noCuentaAlumno INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(45) NOT NULL,
+    paterno VARCHAR(45) NOT NULL,
+    materno VARCHAR(45) NOT NULL,
+    sexo VARCHAR(45),
+    edad INT,
+    direccion VARCHAR(100),
+    celular BIGINT,
+    correoElectronico VARCHAR(60),
+    fechaNacimiento DATE,
+    carrera_id INT,
+    generacion VARCHAR(20),
+    FOREIGN KEY (carrera_id) REFERENCES Carreras(carrera_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
-create table Profesor(
-NoCuentaProfesor int primary key, 
-Nombre varchar(45),
-Paterno varchar(45), 
-Materno varchar(45), 
-Sexo varchar(10), 
-Celular bigint, 
-CorreoElectronico varchar(60), 
-CedulaProfesional varchar(50), 
-Carrera varchar(45),
-foreign key (Carrera)references Carreras(Carrera) on delete cascade on update cascade);
-
-
-create table Alumnos(
-NoCuentaAlumno int primary key, 
-Nombre varchar(45),
-Paterno varchar(45),
-Materno varchar(45),
-Sexo varchar(10),
-Edad int, 
-Direccion varchar(100), 
-Celular bigint, 
-CorreoElectronico varchar(60),
-FechaNacimiento date, 
-Carrera varchar(45), 
-Generacion varchar(20),
-foreign key (carrera)references carreras(carrera) on delete cascade on update cascade);
-
-
-create table Trabajos(IdTesis int primary key, 
-NoCuentaAlumno int,
-NoCuentaProfesor int,
-Tema varchar(50),
-Carrera varchar(45),
-Generacion varchar(20),
-FechaPresentacion date, 
-FechaEntrega date, 
-FechaPublicacion date,
-foreign key (carrera)references carreras(carrera) on delete cascade on update cascade);
+CREATE TABLE Trabajos (
+    id_Trabajo INT PRIMARY KEY AUTO_INCREMENT,
+    noCuentaAlumno INT,
+    noCuentaProfesor INT,
+    tema VARCHAR(100),
+    fechaPresentacion DATE,
+    fechaEntrega DATE,
+    fechaPublicacion DATE,
+    FOREIGN KEY (noCuentaAlumno) REFERENCES Alumnos(noCuentaAlumno) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (noCuentaProfesor) REFERENCES Profesores(noCuentaProfesor) ON DELETE CASCADE ON UPDATE CASCADE
+);
