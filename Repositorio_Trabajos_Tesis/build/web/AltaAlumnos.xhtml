@@ -50,10 +50,10 @@ and open the template in the editor.
                     <p:outputLabel value="Edad Del Fecha De Nacimiento Del Alumno"/>
                     <p:calendar value="#{alumnosBean.alumnos.fechaNacimiento}"/>
                     <p:outputLabel value="Carrera A La Que Pertenece El Alumno"/>
-                    <p:selectOneMenu value="#{carrerasBean.carrerasLista}">
-                        <f:selectItem itemLabel="-- Selecciona una carrera --" itemValue="" />
-                        <f:selectItems value="#{carrerasBean.carrerasLista}" var="carrera" itemLabel="#{carrera.carrera}" itemValue="#{carrera}" />
-                    </p:selectOneMenu>
+                    <p:selectOneMenu value="#{alumnosBean.carrera}">
+                            <f:selectItem itemLabel="-- Selecciona una carrera --" itemValue="" />
+                            <f:selectItems value="#{carrerasBean.carrerasLista}" var="carrera" itemLabel="#{carrera.carrera}" itemValue="#{carrera}" />
+                        </p:selectOneMenu>
                     <p:outputLabel value="Generacion Del Alumno"/>
                     <p:inputText value="#{alumnosBean.alumnos.carrerasByGeneracion}"/>
                 </p:panelGrid>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>ALTA DE CARRERAS</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" type="text/css" href="styles.css"/>
+    </h:head>
+    
+    <h:body>
+        <div class="sidebar">
+            <h3>Índice</h3>
+            <ul>
+                <li><a href="index.xhtml">PAGINA DE INICIO</a></li>
+                <li><a href="AltaCarreras.xhtml">ALTA DE CARRERAS</a></li>
+                <li><a href="ListaCarreras.xhtml">LISTA DE CARRERAS</a></li>
+                <li><a href="AltaAlumnos.xhtml">ALTA DE ALUMNOS</a></li>
+                <li><a href="ListaAlumnos.xhtml">LISTA DE ALUMNOS</a></li>
+            </ul>
+        </div>
+        <h:form>
+            <center>
+                <p:panelGrid columns="2" styleClass="tablaAlta">
+                    <p:outputLabel value="Nombre De La Carrera"/>
+                    <p:inputText value="#{carrerasBean.carreras.nombre}"/>
+                    <p:outputLabel value="Ingrese La Nueva Generacion"/>
+                    <p:inputText value="#{carrerasBean.carreras.generacion}"/>
+                </p:panelGrid>
+                <p:growl id="growl" life="1500"/>
+                <br/>
+                <p:commandButton styleClass="btnAlta" actionListener="#{carrerasBean.insertar()}" value="Agregar" update="growl" />
+            </center>
+        </h:form>
+    </h:body>
+</html>

@@ -24,10 +24,6 @@ public class Alumnos  implements java.io.Serializable {
      private String correoElectronico;
      private Date fechaNacimiento;
      
-    @ManyToOne
-    @JoinColumn(name = "Carrera")
-    private Carreras carrera;
-    
     public Alumnos() {
     }
 
@@ -130,9 +126,7 @@ public class Alumnos  implements java.io.Serializable {
     public Date getFechaNacimiento() {
         return this.fechaNacimiento;
     }
-    
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
-
 }

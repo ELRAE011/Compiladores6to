@@ -85,10 +85,15 @@ public class Carreras  implements java.io.Serializable {
     public void setTrabajosesForCarrera(Set<Trabajos> trabajosesForCarrera) {
         this.trabajosesForCarrera = trabajosesForCarrera;
     }
-
-
-
-
+    
+    @Override
+    public String toString() {
+        return this.carrera;
+    }
+    
+    public String generaciontoString() {
+        return this.generacion;
+    }
 }
 
 

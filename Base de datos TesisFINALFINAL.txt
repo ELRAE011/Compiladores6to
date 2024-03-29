@@ -1,0 +1,52 @@
+jdbc:mysql://localhost:3307/Tesis
+
+create database Tesis;
+
+use Tesis;
+
+CREATE TABLE Carreras (
+    carrera_id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    generacion VARCHAR(20)
+);
+
+CREATE TABLE Profesores (
+    noCuentaProfesor INT PRIMARY KEY ,11:03 p. m. 28/03/2024
+    nombre VARCHAR(45) NOT NULL,
+    paterno VARCHAR(45) NOT NULL,
+    materno VARCHAR(45) NOT NULL,
+    sexo VARCHAR(45),
+    celular BIGINT,
+    correoElectronico VARCHAR(60),
+    cedulaProfesional VARCHAR(50),
+    carrera_id INT,
+    FOREIGN KEY (carrera_id) REFERENCES Carreras(carrera_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Alumnos (
+    noCuentaAlumno INT PRIMARY KEY ,
+    nombre VARCHAR(45) NOT NULL,
+    paterno VARCHAR(45) NOT NULL,
+    materno VARCHAR(45) NOT NULL,
+    sexo VARCHAR(45),
+    edad INT,
+    direccion VARCHAR(100),
+    celular BIGINT,
+    correoElectronico VARCHAR(60),
+    fechaNacimiento DATE,
+    carrera_id INT,
+    generacion VARCHAR(20),
+    FOREIGN KEY (carrera_id) REFERENCES Carreras(carrera_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Trabajos (
+    id_Trabajo INT PRIMARY KEY AUTO_INCREMENT,
+    noCuentaAlumno INT,
+    noCuentaProfesor INT,
+    tema VARCHAR(100),
+    fechaPresentacion DATE,
+    fechaEntrega DATE,
+    fechaPublicacion DATE,
+    FOREIGN KEY (noCuentaAlumno) REFERENCES Alumnos(noCuentaAlumno) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (noCuentaProfesor) REFERENCES Profesores(noCuentaProfesor) ON DELETE CASCADE ON UPDATE CASCADE
+);
