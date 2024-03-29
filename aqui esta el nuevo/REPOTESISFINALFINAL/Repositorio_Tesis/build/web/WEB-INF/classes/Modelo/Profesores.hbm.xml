@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28/03/2024 09:57:35 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelo.Profesores" table="profesores" catalog="tesis" optimistic-lock="version">
+        <id name="noCuentaProfesor" type="java.lang.Integer">
+            <column name="noCuentaProfesor" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="carreras" class="Modelo.Carreras" fetch="select">
+            <column name="carrera_id" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" />
+        </property>
+        <property name="paterno" type="string">
+            <column name="paterno" length="45" not-null="true" />
+        </property>
+        <property name="materno" type="string">
+            <column name="materno" length="45" not-null="true" />
+        </property>
+        <property name="sexo" type="string">
+            <column name="sexo" length="45" />
+        </property>
+        <property name="celular" type="java.lang.Long">
+            <column name="celular" />
+        </property>
+        <property name="correoElectronico" type="string">
+            <column name="correoElectronico" length="60" />
+        </property>
+        <property name="cedulaProfesional" type="string">
+            <column name="cedulaProfesional" length="50" />
+        </property>
+        <set name="trabajoses" table="trabajos" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="noCuentaProfesor" />
+            </key>
+            <one-to-many class="Modelo.Trabajos" />
+        </set>
+    </class>
+</hibernate-mapping>

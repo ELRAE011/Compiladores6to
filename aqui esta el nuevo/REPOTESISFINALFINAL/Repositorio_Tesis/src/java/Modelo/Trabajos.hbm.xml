@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28/03/2024 09:57:35 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelo.Trabajos" table="trabajos" catalog="tesis" optimistic-lock="version">
+        <id name="idTrabajo" type="java.lang.Integer">
+            <column name="id_Trabajo" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="alumnos" class="Modelo.Alumnos" fetch="select">
+            <column name="noCuentaAlumno" />
+        </many-to-one>
+        <many-to-one name="profesores" class="Modelo.Profesores" fetch="select">
+            <column name="noCuentaProfesor" />
+        </many-to-one>
+        <property name="tema" type="string">
+            <column name="tema" length="100" />
+        </property>
+        <property name="fechaPresentacion" type="date">
+            <column name="fechaPresentacion" length="10" />
+        </property>
+        <property name="fechaEntrega" type="date">
+            <column name="fechaEntrega" length="10" />
+        </property>
+        <property name="fechaPublicacion" type="date">
+            <column name="fechaPublicacion" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>
