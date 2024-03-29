@@ -72,11 +72,11 @@ and open the template in the editor.
             <div >
                 <h:commandLink style="margin-right: 10px">
                     <p:graphicImage value="/Images/ExcelLogo.png" width="25" height="25" />
-                    <p:dataExporter type="xls" target="tbl" fileName="C:\Lista" />
+                    <p:dataExporter type="xls" target="tbl" fileName="Carreras_Lista" />
                 </h:commandLink>
                 <h:commandLink>
                     <p:graphicImage value="/Images/PDFIcon.png" width="25" height="25" />
-                    <p:dataExporter type="pdf" target="tbl" fileName="C:\Lista"/>
+                    <p:dataExporter type="pdf" target="tbl" fileName="Carreras_Lista"/>
                 </h:commandLink>   
             </div>
         </h:form>
@@ -89,15 +89,18 @@ and open the template in the editor.
                     <p:outputLabel value="Ingrese La Nueva Generacion:"/>
                     <p:inputText value="#{carrerasBean.carreras.generacion}"/>
                 </p:panelGrid>
-                <p:commandButton actionListener="#{carrerasBean.modificar()}" value="Modificar Datos De La Carrera" update=":formMostrar" onclick="PF('dlgModificar').hide();"/>
+                <p:commandButton actionListener="#{carrerasBean.modificar()}" value="Modificar Datos De La Carrera" update=":formMostrar,:formModificarCarreras:growl" onclick="PF('dlgModificar').hide();"/>
+                <p:growl id="growl" life="3000"/>
             </h:form>
         </p:dialog>
 
-        <p:dialog id="dlgEliminar" header="Eliminar Carrera" showEffect="explode" hideEffect="bounce" widgetVar="dlgEliminar" modal="true" resizable="false" minWidth="200">
+        <p:dialog id="dlgEliminar" header="¿Desea Borrar La Carrera Seleccionada?" showEffect="explode" hideEffect="bounce" widgetVar="dlgEliminar" modal="true" resizable="false" minWidth="200">
             <h:form id="formEliminar">
-                <p:outputLabel value="¿Desea Borrar La Carrera Seleccionada?"/>
-                <p:commandButton actionListener="#{carrerasBean.eliminar()}" value="SI" update=":formMostrar" onclick="PF('dlgEliminar').hide();"/>
-                <p:commandButton value="NO" update=":formMostrar" onclick="PF('dlgEliminar2').hide();"/>
+                <p:outputLabel value="CONTRASEÑA: "/>
+                <p:password id="password" value="#{carrerasBean.password}" feedback="false" />
+                <p:commandButton actionListener="#{carrerasBean.eliminar()}" value="SI" update=":formMostrar, :formEliminar:growl" onclick="PF('dlgEliminar').hide();"/>
+                <p:commandButton value="NO" update=":formMostrar, :formEliminar:growl" onclick="PF('dlgEliminar2').hide();"/>
+                <p:growl id="growl" life="3000"/>
             </h:form>
         </p:dialog>
 

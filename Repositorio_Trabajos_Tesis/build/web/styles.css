@@ -29,3 +29,14 @@ body {
    text-decoration:none; 
    color:#333; 
 }
+.tablaAlta .ui-panelgrid-cell {
+    background-color: #7c8243 !important;
+    color: black !important;
+    border: none !important; 
+    padding: 10px !important;
+}
+
+.btnAlta{
+    background-color: gold;
+    padding: 7px;
+}

@@ -25,6 +25,7 @@ public class carrerasBean {
 
     private Carreras carreras;
     private List<Carreras> carrerasLista;
+    private String password;
 
     public Carreras getCarreras() {
         return carreras;
@@ -43,6 +44,14 @@ public class carrerasBean {
     public void setCarrerasLista(List<Carreras> carrerasLista) {
         this.carrerasLista = carrerasLista;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
     
     public void addMessage(String summary){
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
@@ -51,6 +60,8 @@ public class carrerasBean {
     
     public carrerasBean() {
         carreras = new Carreras();
+        CarrerasDAO dao = new CarrerasDaoImplement();
+        carrerasLista = dao.mostrarCarreras();
     }
   
     public void insertar(){
@@ -58,6 +69,7 @@ public class carrerasBean {
         dao.insertarCarrera(carreras);
         carreras = new Carreras();
         addMessage("Carrera Agregada A La Base De Datos...");
+        carrerasLista = dao.mostrarCarreras();
     }
     
     public void modificar(){
@@ -65,12 +77,25 @@ public class carrerasBean {
         dao.modificarCarrera(carreras);
         carreras = new Carreras();
         addMessage("Carrera Modificada En La Base De Datos...");
+        carrerasLista = dao.mostrarCarreras();
     }
     
     public void eliminar(){
         CarrerasDAO dao = new CarrerasDaoImplement();
-        dao.eliminarCarrera(carreras);
-        carreras = new Carreras();
-        addMessage("Carrera Eliminada En La Base De Datos...");
+        if (password != null && !password.isEmpty()) {
+            if (password.equals("admin123")) {
+                dao.eliminarCarrera(carreras);
+                    carreras = new Carreras();
+                    addMessage("Carrera Eliminada En La Base De Datos...");
+                    carrerasLista = dao.mostrarCarreras();
+            } else {
+                addMessage("Contraseña incorrecta. No se pudo eliminar la carrera.");
+                carrerasLista = dao.mostrarCarreras();
+            }
+        } else {
+            addMessage("Por favor, ingrese una contraseña.");
+            carrerasLista = dao.mostrarCarreras();
+        }
+        password = null;
     }
 }

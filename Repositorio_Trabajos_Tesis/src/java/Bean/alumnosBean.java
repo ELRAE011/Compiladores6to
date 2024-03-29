@@ -50,6 +50,8 @@ public class alumnosBean {
 
     public alumnosBean() {
         alumnos = new Alumnos();
+        AlumnosDAO dao = new AlumnosDaoImplement();
+        alumnosLista = dao.mostrarAlumnos();
     }
     
     public void insertar(){
@@ -57,6 +59,8 @@ public class alumnosBean {
         dao.insertarAlumno(alumnos);
         alumnos = new Alumnos();
         addMessage("Alumno Agregado A La Base De Datos...");
+        dao.mostrarAlumnos();
+        
     }
 
     public void modificar(){

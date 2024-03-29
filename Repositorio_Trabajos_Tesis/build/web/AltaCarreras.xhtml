@@ -7,7 +7,8 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>ALTA DE CARRERAS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -27,14 +28,15 @@ and open the template in the editor.
         </div>
         <h:form>
             <center>
-                <p:panelGrid columns="2">
-                    <p:outputLabel value="Nombre De La Carrera" />
+                <p:panelGrid columns="2" styleClass="tablaAlta">
+                    <p:outputLabel value="Nombre De La Carrera"/>
                     <p:inputText value="#{carrerasBean.carreras.carrera}"/>
                     <p:outputLabel value="Ingrese La Nueva Generacion"/>
                     <p:inputText value="#{carrerasBean.carreras.generacion}"/>
                 </p:panelGrid>
                 <p:growl id="growl" life="1000"/>
-                <p:commandButton actionListener="#{carrerasBean.insertar()}" value="Agregar" update="growl" style="background-color: gold"/>
+                <br/>
+                <p:commandButton styleClass="btnAlta" actionListener="#{carrerasBean.insertar()}" value="Agregar" update="growl" />
             </center>
         </h:form>
     </h:body>

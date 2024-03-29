@@ -7,7 +7,8 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>ALTA DE ALUMNOS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -27,7 +28,7 @@ and open the template in the editor.
         </div>
         <h:form>
             <center>
-                <p:panelGrid columns="2">
+                <p:panelGrid columns="2" styleClass="tablaAlta">
                     <p:outputLabel value="Numero De Cuenta"/>
                     <p:inputText value="#{alumnosBean.alumnos.noCuentaAlumno}" />
                     <p:outputLabel value="Nombre Del Alumno"/>
@@ -49,12 +50,16 @@ and open the template in the editor.
                     <p:outputLabel value="Edad Del Fecha De Nacimiento Del Alumno"/>
                     <p:calendar value="#{alumnosBean.alumnos.fechaNacimiento}"/>
                     <p:outputLabel value="Carrera A La Que Pertenece El Alumno"/>
-                    <p:inputText value="#{alumnosBean.alumnos.carrerasByCarrera}"/>
+                    <p:selectOneMenu value="#{carrerasBean.carrerasLista}">
+                        <f:selectItem itemLabel="-- Selecciona una carrera --" itemValue="" />
+                        <f:selectItems value="#{carrerasBean.carrerasLista}" var="carrera" itemLabel="#{carrera.carrera}" itemValue="#{carrera}" />
+                    </p:selectOneMenu>
                     <p:outputLabel value="Generacion Del Alumno"/>
                     <p:inputText value="#{alumnosBean.alumnos.carrerasByGeneracion}"/>
                 </p:panelGrid>
                 <p:growl id="growl" life="1000"/>
-                <p:commandButton actionListener="#{alumnosBean.insertar()}" value="Agregar" update="growl" style="background-color: gold"/>
+                <br/>
+                <p:commandButton actionListener="#{alumnosBean.insertar()}" value="Agregar" update="growl" styleClass="btnAlta"/>
             </center>
         </h:form>
     </h:body>
