@@ -19,6 +19,8 @@ public class Trabajos  implements java.io.Serializable {
      private Date fechaPublicacion;
 
     public Trabajos() {
+        alumnos = new Alumnos();
+        profesores = new Profesores();
     }
 
     public Trabajos(Alumnos alumnos, Profesores profesores, String tema, Date fechaPresentacion, Date fechaEntrega, Date fechaPublicacion) {

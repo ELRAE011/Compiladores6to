@@ -78,7 +78,7 @@ public class TrabajosDAOImplement implements TrabajosDAO{
         List<Trabajos> lista = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from trabajos");
+            Query query = session.createQuery("from Trabajos");
             lista = (List<Trabajos>) query.list();
         } catch (HibernateException e) {
             System.out.println(e.getMessage());

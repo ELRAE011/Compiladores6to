@@ -23,6 +23,7 @@ public class Profesores  implements java.io.Serializable {
      private Set<Trabajos> trabajoses = new HashSet<Trabajos>(0);
 
     public Profesores() {
+        carreras = new Carreras();
     }
 
 	

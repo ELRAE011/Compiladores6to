@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>TODO supply a title</title>
+        <title>LISTA TABAJOS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="stylesheet" type="text/css" href="styles.css"/>
     </h:head>
@@ -39,11 +39,11 @@ and open the template in the editor.
                     <div style="float:right;padding-top: 10px; display: flex; flex-direction: row;">
                         <h:commandLink style="margin-right: 10px">
                             <p:graphicImage value="/Images/ExcelLogo.png" width="25" height="25" />
-                            <p:dataExporter type="xls" target="tbl" fileName="TrabajosLista" />
+                            <p:dataExporter type="xls" target="tbl" fileName="Trabajos_Lista" />
                         </h:commandLink>
                         <h:commandLink>
                             <p:graphicImage value="/Images/PDFIcon.png" width="25" height="25" />
-                            <p:dataExporter type="pdf" target="tbl" fileName="TrabajosLista"/>
+                            <p:dataExporter type="pdf" target="tbl" fileName="Trabajos_Lista"/>
                         </h:commandLink>   
                     </div>
                 </f:facet>
@@ -52,10 +52,10 @@ and open the template in the editor.
                     <h:outputText value="#{per.idTrabajo}"/>
                 </p:column> 
                 <p:column headerText="No Cuenta Alumno">
-                    <h:outputText value="#{per.alumnos}"/>
+                    <h:outputText value="#{per.alumnos.noCuentaAlumno}"/>
                 </p:column> 
                 <p:column headerText="No Cuenta Profesor">
-                    <h:outputText value="#{per.profesores}"/>
+                    <h:outputText value="#{per.profesores.noCuentaProfesor}"/>
                 </p:column>
                 <p:column headerText="Tema">
                     <h:outputText value="#{per.tema}"/>
@@ -102,6 +102,8 @@ and open the template in the editor.
         <p:dialog id="dlgModificar" header="Modificar Datos" showEffect="explode" hideEffect="bounce" widgetVar="dlgModificar" modal="true" resizable="false" minWidth="200">
             <h:form id="formModificarTrabajos">
                 <p:panelGrid columns="2">
+                    <p:outputLabel value="ID Trabajos"/>
+                    <p:inputText value="#{trabajosBean.trabajos.idTrabajo}" />
                    <p:outputLabel value="Numero De CuentaAlumno"/>
                     <p:inputText value="#{trabajosBean.noCuentaAlumno}" />
                     <p:outputLabel value="Numero De CuentaProfesor"/>
@@ -116,7 +118,7 @@ and open the template in the editor.
                     <p:inputText value="#{trabajosBean.trabajos.fechaPublicacion}"/>
                 </p:panelGrid>
                 <br/>
-                <p:commandButton actionListener="#{trabajosBean.modificar()}" value="Modificar Trabajo" update=":formMostrar,:formModificarTrabajos:growl" onclick="PF('dlgModificar').hide();"/>
+                <p:commandButton actionListener="#{trabajosBean.modificar()}" value="Modificar Trabajos" update=":formMostrar,:formModificarTrabajos:growl" onclick="PF('dlgModificar').hide();"/>
                 <p:growl id="growl" life="3000"/>
             </h:form>
         </p:dialog>

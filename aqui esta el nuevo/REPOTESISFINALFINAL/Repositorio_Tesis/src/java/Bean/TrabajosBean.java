@@ -28,7 +28,7 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class TrabajosBean {
     private Trabajos trabajos;
-    private List<Trabajos>trabajosLista;
+    private List<Trabajos> trabajosLista;
     private int noCuentaAlumno;
     private int noCuentaProfesor;
     private String password;

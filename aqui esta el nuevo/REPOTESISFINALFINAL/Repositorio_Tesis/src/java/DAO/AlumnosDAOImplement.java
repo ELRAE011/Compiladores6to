@@ -78,7 +78,7 @@ public class AlumnosDAOImplement implements AlumnosDAO{
         List<Alumnos> lista = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from alumnos");
+            Query query = session.createQuery("from Alumnos");
             lista = (List<Alumnos>) query.list();
         } catch (HibernateException e) {
             System.out.println(e.getMessage());

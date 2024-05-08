@@ -78,7 +78,7 @@ public class ProfesoresDaoImplements implements ProfesoresDAO{
         List<Profesores> lista = null;
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from profesores");
+            Query query = session.createQuery("from Profesores");
             lista = (List<Profesores>) query.list();
         } catch (HibernateException e) {
             System.out.println(e.getMessage());

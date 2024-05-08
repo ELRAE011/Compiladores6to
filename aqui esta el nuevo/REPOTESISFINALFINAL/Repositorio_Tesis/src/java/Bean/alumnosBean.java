@@ -80,7 +80,7 @@ public class alumnosBean {
         dao.insertarAlumno(alumnos);
         alumnos = new Alumnos();
         addMessage("Alumno Agregado A La Base De Datos...");
-        dao.mostrarAlumnos();
+         alumnosLista = dao.mostrarAlumnos();
     }
 
     public void modificar(){

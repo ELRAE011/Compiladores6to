@@ -11,7 +11,7 @@ CREATE TABLE Carreras (
 );
 
 CREATE TABLE Profesores (
-    noCuentaProfesor INT PRIMARY KEY ,11:03 p. m. 28/03/2024
+    noCuentaProfesor INT PRIMARY KEY ,
     nombre VARCHAR(45) NOT NULL,
     paterno VARCHAR(45) NOT NULL,
     materno VARCHAR(45) NOT NULL,

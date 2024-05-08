@@ -9,7 +9,7 @@ CREATE TABLE Carreras (
 );
 
 CREATE TABLE Profesores (
-    noCuentaProfesor INT PRIMARY KEY AUTO_INCREMENT,
+    noCuentaProfesor INT PRIMARY KEY,
     nombre VARCHAR(45) NOT NULL,
     paterno VARCHAR(45) NOT NULL,
     materno VARCHAR(45) NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE Profesores (
 );
 
 CREATE TABLE Alumnos (
-    noCuentaAlumno INT PRIMARY KEY AUTO_INCREMENT,
+    noCuentaAlumno INT PRIMARY KEY,
     nombre VARCHAR(45) NOT NULL,
     paterno VARCHAR(45) NOT NULL,
     materno VARCHAR(45) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE Alumnos (
 );
 
 CREATE TABLE Trabajos (
-    id_Trabajo INT PRIMARY KEY AUTO_INCREMENT,
+    id_Trabajo INT PRIMARY KEY auto_increment,
     noCuentaAlumno INT,
     noCuentaProfesor INT,
     tema VARCHAR(100),
