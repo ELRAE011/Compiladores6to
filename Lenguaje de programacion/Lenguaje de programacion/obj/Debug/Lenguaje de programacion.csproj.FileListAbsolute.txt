@@ -1,0 +1,9 @@
+C:\Users\sigar.JUAN\Documents\SharpDevelop Projects\Lenguaje de programacion\Lenguaje de programacion\bin\Debug\Lenguaje de programacion.exe
+C:\Users\sigar.JUAN\Documents\SharpDevelop Projects\Lenguaje de programacion\Lenguaje de programacion\bin\Debug\Lenguaje de programacion.pdb
+C:\Users\sigar.JUAN\Documents\SharpDevelop Projects\Lenguaje de programacion\Lenguaje de programacion\obj\Debug\Lenguaje de programacion.csprojResolveAssemblyReference.cache
+C:\Users\sigar.JUAN\Documents\SharpDevelop Projects\Lenguaje de programacion\Lenguaje de programacion\obj\Debug\Lenguaje_de_programacion.MainForm.resources
+C:\Users\sigar.JUAN\Documents\SharpDevelop Projects\Lenguaje de programacion\Lenguaje de programacion\obj\Debug\Lenguaje de programacion.csproj.GenerateResource.Cache
+C:\Users\sigar.JUAN\Documents\SharpDevelop Projects\Lenguaje de programacion\Lenguaje de programacion\obj\Debug\Lenguaje de programacion.exe
+C:\Users\sigar.JUAN\Documents\SharpDevelop Projects\Lenguaje de programacion\Lenguaje de programacion\obj\Debug\Lenguaje de programacion.pdb
+C:\Users\sigar.JUAN\Documents\SharpDevelop Projects\Lenguaje de programacion\Lenguaje de programacion\obj\Debug\Lenguaje_de_programacion.PalabrasReservadas.resources
+C:\Users\sigar.JUAN\Documents\SharpDevelop Projects\Lenguaje de programacion\Lenguaje de programacion\obj\Debug\Lenguaje_de_programacion.ListaErrores.resources
