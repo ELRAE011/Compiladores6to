@@ -47,15 +47,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ListaErrores.cs" />
+    <Compile Include="ListaErrores.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ListaErrores.Designer.cs">
       <DependentUpon>ListaErrores.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PalabrasReservadas.cs" />
+    <Compile Include="PalabrasReservadas.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PalabrasReservadas.Designer.cs">
       <DependentUpon>PalabrasReservadas.cs</DependentUpon>
     </Compile>
@@ -73,9 +79,7 @@
       <DependentUpon>PalabrasReservadas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Imagen" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Imagen\examination_assessment_tests_online_education_icon_262299.ico" />
     <None Include="Imagen\exam_study_online_testing_preparation_icon_262320.ico" />

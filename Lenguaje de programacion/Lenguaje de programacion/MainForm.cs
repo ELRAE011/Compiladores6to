@@ -35,6 +35,7 @@ namespace Lenguaje_de_programacion
 		
         private List<string[]> datos;
         public List<string[]> datosErrores;
+        //private List<string[]> datosErrores = new List<string[]>();
         
         public MainForm()
         {
@@ -61,7 +62,7 @@ namespace Lenguaje_de_programacion
     	string texto = richTextBox1.Text;
     	
     	// Validar estructura de if
-        ValidarIf(texto);
+        ValidarDeclaracionVariable(texto);
 
 	    // Verificar si ya no quedan caracteres especiales en el texto
 	    if (!QuedanCaracteresEspeciales(texto))
@@ -70,77 +71,133 @@ namespace Lenguaje_de_programacion
 	        LimpiarErroresDataGridView();
 	    }
         }// Método para manejar el evento de cambio de selección en el DataGridView
-       private void ValidarIf(string texto)
-    {
-        string[] lines = texto.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-        int state = 0;
-
-        foreach (string line in lines)
+        private void ValidarDeclaracionVariable(string texto)
         {
-            string trimmedLine = line.Trim();
+            // Reiniciar la lista de errores
+            LimpiarErrores();
 
-            switch (state)
+            // Tokenizar el texto
+            string[] tokens = texto.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            // Variables para rastrear los elementos esperados
+            string[] elementosEsperados = { "Annie", "identificador", "=", "valor", ";" };
+            int indiceElementoEsperado = 0;
+
+            // Recorrer los tokens
+            foreach (string token in tokens)
             {
-                case 0:
-                    if (trimmedLine.StartsWith("if"))
-                    {
-                        state = 1;
-                    }
-                    break;
-                case 1:
-                    if (trimmedLine.Contains("("))
-                    {
-                        state = 2;
-                    }
-                    else
-                    {
-                        AgregarError("100", "Estructura if incorrecta", "Falta '(' después de 'if'", "Añade '(' después de 'if'");
-                        state = 0;
-                    }
-                    break;
-                case 2:
-                    if (trimmedLine.Contains(")"))
-                    {
-                        state = 3;
-                    }
-                    else
-                    {
-                        AgregarError("101", "Estructura if incorrecta", "Falta ')' para cerrar la condición", "Añade ')' para cerrar la condición");
-                        state = 0;
-                    }
-                    break;
-                case 3:
-                    if (trimmedLine.Contains("{"))
-                    {
-                        state = 4;
-                    }
-                    else
-                    {
-                        AgregarError("102", "Estructura if incorrecta", "Falta '{' para abrir el bloque de código", "Añade '{' para abrir el bloque de código");
-                        state = 0;
-                    }
-                    break;
-                case 4:
-                    if (trimmedLine.Contains("}"))
-                    {
-                        state = 0;
-                    }
-                    else
-                    {
-                        // Asumimos que el cuerpo del if está bien estructurado
-                        state = 4;
-                    }
-                    break;
-                default:
-                    state = 0;
-                    break;
+                // Validar el token actual
+                switch (elementosEsperados[indiceElementoEsperado])
+                {
+                    case "Annie":
+                        if (token != "Annie")
+                        {
+                            AgregarError(ObtenerIdErrores("Annie"), "Error de sintaxis", "Se esperaba 'int'", "Inicia la declaración de la variable con 'int'");
+                        }
+                        break;
+                    case "identificador":
+                        if (!EsIdentificadorValido(token))
+                        {
+                            AgregarError(ObtenerIdErrores("identificador"), "Error de sintaxis", "Identificador no válido", "Usa un nombre de variable válido o escribe uno");
+                        }
+                        break;
+                    case "=":
+                        if (token != "=")
+                        {
+                            AgregarError(ObtenerIdErrores("="), "Error de sintaxis", "Se esperaba '='", "Usa '=' para asignar un valor a la variable");
+                        }
+                        break;
+                    case "valor":
+                        if (!EsValorValido(token))
+                        {
+                            AgregarError(ObtenerIdErrores("valor"), "Error de sintaxis", "Valor no válido", "Asigna un valor válido a la variable");
+                        }
+                        break;
+                    case "|":
+                        if (!token.EndsWith("|"))
+                        {
+                            AgregarError(ObtenerIdErrores("|"), "Error de sintaxis", "Se esperaba ';'", "Termina la declaración de la variable con ';'");
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+                // Pasar al siguiente elemento esperado
+                indiceElementoEsperado++;
+
+                // Si llegamos al final de los elementos esperados, reiniciamos el índice
+                if (indiceElementoEsperado >= elementosEsperados.Length)
+                {
+                    indiceElementoEsperado = 0;
+                }
             }
+
+            // Actualizar el DataGridView después de validar
+            ActualizarDgvListaErrores();
         }
 
-        // Actualizar DataGridView después de validar
-        ActualizarDgvListaErrores();
-    }
-        
+        private bool EsIdentificadorValido(string token)
+        {
+            // Lista de palabras reservadas
+            string[] palabrasReservadas = { "Alistar", "Ashe", "Annie", "Ammumu", "Akali", "Bardo", "Brand", "Braum", "Camile", "Corki", "Mundo", "Draven", "Kaisa" };
+            //string[] palabrasReservadas = { "int", "float", "if", "else", "while", "return" };
+
+
+            // Verificar si es una palabra reservada
+            if (palabrasReservadas.Contains(token))
+            {
+                return false;
+            }
+
+            // Verificar si sigue las reglas de nombres de variables
+            // Regla: Debe empezar con una letra o guion bajo y puede contener letras, dígitos o guion bajo
+            if (string.IsNullOrEmpty(token) || !char.IsLetter(token[0]) && token[0] != '_')
+            {
+                return false;
+            }
+
+            // Verificar que el resto de los caracteres sean letras, dígitos o guion bajo
+            for (int i = 1; i < token.Length; i++)
+            {
+                if (!char.IsLetterOrDigit(token[i]) && token[i] != '_')
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool EsValorValido(string token)
+        {
+            int parsedValue;
+            return int.TryParse(token, out parsedValue);
+        }
+        private string ObtenerIdErrores(String elementoEsperado)
+        {
+            switch (elementoEsperado)
+            {
+                case "Annie":
+                    return "200";
+                case "identificador":
+                    return "201";
+                case "=":
+                    return "202";
+                case "valor":
+                    return "203";
+                case "|":
+                    return "204";
+                default:
+                    return "";
+            }
+
+        }
+        private void LimpiarErrores()
+        {
+            // Limpiar los errores existentes en el DataGridView
+        }
+
         void DataGridView1SelectionChanged(object sender, EventArgs e)
 		{
 			// Deshabilitar la edición del DataGridView cuando se selecciona una celda
@@ -158,41 +215,35 @@ namespace Lenguaje_de_programacion
             dgvListaErrores.Columns[2].Name = "Descripción";
             dgvListaErrores.Columns[3].Name = "Solución";
         }
+
         
         private void AgregarError(string id, string tipo, string descripcion, string solucion)
         {
-            datosErrores.Add(new string[] { id, tipo, descripcion, solucion });
-            ActualizarDgvListaErrores();
+            if (!ErrorPresente(id))
+            {
+                datosErrores.Add(new string[] { id, tipo, descripcion, solucion });
+                ActualizarDgvListaErrores();
+            }
+
         }
-        
+
         private void QuitarError(string id)
         {
             var error = datosErrores.FirstOrDefault(dato => dato[0] == id);
-		    if (error != null)
-		    {
-		    	
-		        datosErrores.Remove(error);
-		        ActualizarDgvListaErrores();
-		    }
-		    
-		    foreach (DataGridViewRow row in dgvListaErrores.Rows)
-		    {
-		        if (row.Cells["id"].Value != null && row.Cells["id"].Value.ToString() == id)
-		        {
-		        	dgvListaErrores.Rows.Remove(row);
-		            break;
-		        }
-		    }
-            
+            if (error != null)
+            {
+                datosErrores.Remove(error);
+                ActualizarDgvListaErrores();
+            }
         }
 
         private void ActualizarDgvListaErrores()
         {
-           dgvListaErrores.Rows.Clear();
-		    foreach (var dato in datosErrores)
-		    {
-		        dgvListaErrores.Rows.Add(dato);
-		    }
+            dgvListaErrores.Rows.Clear();
+            foreach (var dato in datosErrores)
+            {
+                dgvListaErrores.Rows.Add(dato);
+            }
         }
         
         private void ColoriseText()
@@ -458,93 +509,106 @@ namespace Lenguaje_de_programacion
 		{
 		    return datosErrores.Any(dato => dato[0] == id);
 		}
-		
 
-		void RichTextBox1KeyPress(object sender, KeyPressEventArgs e)
-		{
-			 // Verificar si la tecla presionada es Enter (código de tecla 13)
-        if (e.KeyChar == (char)Keys.Enter)
+
+        void RichTextBox1KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Incrementar el número de líneas
-            int lineCount = richTextBox1.Lines.Length;
-
-            // Agregar el número de línea seguido de un punto y un espacio antes de insertar el texto
-            richTextBox1.AppendText(lineCount.ToString() + " ");
-
-            // Evitar que el RichTextBox maneje el Enter automáticamente
-            e.Handled = true;
-        }
-
-        // Verificar si se está borrando un paréntesis, una llave, un corchete o una comilla
-        if (e.KeyChar == (char)Keys.Back)
-        {
-            // Obtener el texto actual del RichTextBox
-            string texto = richTextBox1.Text;
-
-            // Obtener el índice del cursor
-            int index = richTextBox1.SelectionStart;
-
-            // Verificar si el caracter en la posición anterior es un paréntesis, una llave, un corchete o una comilla
-            if (index > 0 && index <= texto.Length && (texto[index - 1] == '(' || texto[index - 1] == ')' || texto[index - 1] == '{' || texto[index - 1] == '}' || texto[index - 1] == '[' || texto[index - 1] == ']'))
+            // Verificar si se está borrando un paréntesis, una llave, un corchete o una comilla
+            if (e.KeyChar == (char)Keys.Back)
             {
-                // Obtener el id correspondiente al tipo de error
-                string id = ObtenerIdError(texto[index - 1]);
+                // Obtener el texto actual del RichTextBox
+                string texto = richTextBox1.Text;
 
-                // Agregar el error si no está presente
-                if (!ErrorPresente(id))
+                // Obtener el índice del cursor
+                int index = richTextBox1.SelectionStart;
+
+                // Verificar si el caracter en la posición anterior es una palabra reservada o un simbolo importante
+                if (index > 0 && index <= texto.Length)
                 {
-                    AgregarError(id, "Falta cerrar " + texto[index - 1], "Este error ocurre cuando falta un " + texto[index - 1] + " en el código", "Agrega el " + texto[index - 1] + " que falta para corregir el error");
+                    char charToCheck = texto[index - 1];
+                    if (charToCheck == ' ' || charToCheck == '=' || charToCheck == '|')
+                    {
+                        // Validar declaración de variables
+                        ValidarDeclaracionVariable(texto);
+                    }
                 }
             }
         }
+            /*
+            // Verificar si se está borrando un paréntesis, una llave, un corchete o una comilla
+            if (e.KeyChar == (char)Keys.Back)
+            {
+                // Obtener el texto actual del RichTextBox
+                string texto = richTextBox1.Text;
 
-        if (e.KeyChar == '(')
-        {
-            AgregarError("24", "Falta cerrar paréntesis", "Este error ocurre cuando falta un paréntesis en el código", "Agrega el paréntesis que falta para corregir el error");
-        }
-        else if (e.KeyChar == ')')
-        {
-            QuitarError("24");
-        }
+                // Obtener el índice del cursor
+                int index = richTextBox1.SelectionStart;
 
-        if (e.KeyChar == '{')
-        {
-            AgregarError("11", "Falta de llave", "Este error ocurre cuando falta una llave de apertura { o una llave de cierre } en un bloque de código", "Asegúrate de que cada llave de apertura { tenga una llave de cierre } ");
-        }
-        else if (e.KeyChar == '}')
-        {
-            QuitarError("11");
-        }
+                // Verificar si el caracter en la posición anterior es un paréntesis, una llave, un corchete o una comilla
+                if (index > 0 && index <= texto.Length && (texto[index - 1] == '(' || texto[index - 1] == ')' || texto[index - 1] == '{' || texto[index - 1] == '}' || texto[index - 1] == '[' || texto[index - 1] == ']' || texto[index - 1] == '\"'))
+                {
+                    // Obtener el id correspondiente al tipo de error
+                    string id = ObtenerIdError(texto[index - 1]);
 
-        if (e.KeyChar == '[')
-        {
-            AgregarError("26", "Falta de corchete", "Este error ocurre cuando falta un corchete de apertura [ o un corchete de cierre ] en un bloque de código", "Asegúrate de que cada corchete de apertura [ tenga un corchete de cierre ] ");
-        }
-        else if (e.KeyChar == ']')
-        {
-            QuitarError("26");
-        }
-		   
+                    // Agregar el error si no está presente
+                    if (!ErrorPresente(id))
+                    {
+                        AgregarError(id, "Falta cerrar " + texto[index - 1], "Este error ocurre cuando falta un " + texto[index - 1] + " en el código", "Agrega el " + texto[index - 1] + " que falta para corregir el error");
+                    }
+                }
+            }
+
+            if (e.KeyChar == '(')
+            {
+                AgregarError("24", "Falta cerrar paréntesis", "Este error ocurre cuando falta un paréntesis en el código", "Agrega el paréntesis que falta para corregir el error");
+            }
+            else if (e.KeyChar == ')')
+            {
+                QuitarError("24");
+            }
+
+            if (e.KeyChar == '{')
+            {
+                AgregarError("11", "Falta de llave", "Este error ocurre cuando falta una llave de apertura { o una llave de cierre } en un bloque de código", "Asegúrate de que cada llave de apertura { tenga una llave de cierre } ");
+            }
+            else if (e.KeyChar == '}')
+            {
+                QuitarError("11");
+            }
+
+            if (e.KeyChar == '[')
+            {
+                AgregarError("26", "Falta de corchete", "Este error ocurre cuando falta un corchete de apertura [ o un corchete de cierre ] en un bloque de código", "Asegúrate de que cada corchete de apertura [ tenga un corchete de cierre ] ");
+            }
+            else if (e.KeyChar == ']')
+            {
+                QuitarError("26");
+            }
+
 		}
-		
-		private string ObtenerIdError(char caracter)
-		{
-		   switch (caracter)
-	        {
-	            case '(':
-	            case ')':
-	                return "24";
-	            case '{':
-	            case '}':
-	                return "11";
-	            case '[':
-	            case ']':
-	                return "26";
-	            default:
-	                return "";
-	        }
 
-		}
+        private string ObtenerIdError(char caracter)
+        {
+            switch (caracter)
+            {
+                case '(':
+                    return "24";
+                case ')':
+                    return "24";
+                case '{':
+                    return "11";
+                case '}':
+                    return "11";
+                case '[':
+                    return "26";
+                case ']':
+                    return "26";
+                case '\"':
+                    return "27";
+                default:
+                    return "";
+            }
+        }*/
 				
 		private void LimpiarErroresDataGridView()
 		{
@@ -556,14 +620,6 @@ namespace Lenguaje_de_programacion
 		{
 		    // Verificar si quedan caracteres especiales en el texto
 		    return texto.Contains('(') || texto.Contains(')') || texto.Contains('{') || texto.Contains('}') || texto.Contains('[') || texto.Contains(']') || texto.Contains('\"');
-		}
-		
-		private int lineCount = 1; // Variable para llevar el seguimiento del número de líneas
-
-		void MainFormLoad(object sender, EventArgs e)
-		{
-			// Al iniciar la aplicación, mostrar la numeración inicial en el RichTextBox
-   			 richTextBox1.AppendText(lineCount.ToString() + " ");
 		}
 		
 		void DgvListaErroresSelectionChanged(object sender, EventArgs e)

@@ -694,7 +694,6 @@ namespace Lenguaje_de_programacion
 			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "MainForm";
 			this.Text = "Lenguaje de programacion";
-			this.Load += new System.EventHandler(this.MainFormLoad);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
